@@ -1,3 +1,12 @@
+/*
+    Ejercicio propuestos:
+        1. Propuestas pendientes
+        2. Declaracion de atributos masivos NO LISTADO
+        3. Enlaze de objetos con la Vista con bucle ejmplo Buttoni i=0 i=1...
+        4. Asignacion de eventos en bucle
+        5. onClick- Simplificar
+ */
+
 package com.example.actividad_312;
 
 import android.os.Bundle;
@@ -99,103 +108,110 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     //Inicializar la calculadora
     void Reset(){
-
+        operando1=0;
+        operando2=0;
+        strResultado="0";
+        lcd.setText(strResultado);
     }
 
     //Logica de funcionamiento
+    //Ejercicio: onClick V2
     @Override
     public void onClick(View v){
+        //Implementacion V1 (Primero y no definitiva)
         //Identifica el origen del evento
         if(v.getId()==R.id.btnButton0){
             //Gestiona el boton 0
+            strResultado+="0";
+            operando1= operando1 * 10;
+            lcd.setText(strResultado);
 
         }else if(v.getId()==R.id.btnButton1){
             //Gestiona el boton 1
-            btnButton_1.getText();
+            strResultado+="1";
+            operando1= (operando1 * 10 +1);
+            lcd.setText(strResultado);
+
         }else if(v.getId()==R.id.btnButton2){
             //Gestiona el boton 2
+            strResultado+="2";
+            operando1= (operando1 * 10 +2);
+            lcd.setText(strResultado);
 
         } else if (v.getId()==R.id.btnButton3){
             //Gestiona el boton 3
+            strResultado+="3";
+            operando1= (operando1 * 10 +3);
+            lcd.setText(strResultado);
 
         } else if (v.getId()==R.id.btnButton4) {
             //Gestiona el boton 4
+            strResultado+="4";
+            operando1= (operando1 * 10 +4);
+            lcd.setText(strResultado);
 
         } else if (v.getId()==R.id.btnButton5) {
             //Gestiona el boton 5
+            strResultado+="5";
+            operando1= (operando1 * 10 +5);
+            lcd.setText(strResultado);
 
         } else if (v.getId()==R.id.btnButton6) {
             //Gestiona el boton 6
+            strResultado+="6";
+            operando1= (operando1 * 10 +6);
+            lcd.setText(strResultado);
 
         } else if (v.getId()==R.id.btnButton7) {
             //Gestiona el boton 7
+            strResultado+="7";
+            operando1= (operando1 * 10 +7);
+            lcd.setText(strResultado);
 
         } else if (v.getId()==R.id.btnButton8) {
             //Gestiona el boton 8
+            strResultado+="8";
+            operando1= (operando1 * 10 +8);
+            lcd.setText(strResultado);
 
         } else if (v.getId()==R.id.btnButton9) {
             //Gestiona el boton 9
+            strResultado+="9";
+            operando1= (operando1 * 10 +9);
+            lcd.setText(strResultado);
 
-        }
-    }
+        } else if (v.getId()==R.id.btnButtonSumar) {
+            operacion='+';
+            strResultado+=operacion;
+            lcd.setText((strResultado));
 
+            //Cambio de operando
+            operando2=operando1;
+            operando1=0;
 
+        } else if (v.getId()==R.id.btnButtonRestar) {
+            operacion='-';
+            strResultado+=operacion;
+            lcd.setText((strResultado));
 
+            //Cambio de operando
+            operando2=operando1;
+            operando1=0;
+        } else if (v.getId()==R.id.btnButtonMulti) {
 
-
-
-
-
-
-
-
-
-
-
-
-
-    private void operar(String operacion) {
-        if (!pantalla.getText().toString().isEmpty()) {
-            valor1 = Double.parseDouble(pantalla.getText().toString());
-            pantalla.setText("");
-            switch (operacion) {
-                case "+": suma = true; break;
-                case "-": resta = true; break;
-                case "*": multiplicacion = true; break;
-                case "/": division = true; break;
-            }
-        } else {
-            Toast.makeText(this, "Introduce un número", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private void calcularResultado() {
-        if (!pantalla.getText().toString().isEmpty()) {
-            valor2 = Double.parseDouble(pantalla.getText().toString());
-            double resultado = 0;
-
-            if (suma) {
-                resultado = valor1 + valor2;
-                suma = false;
-            } else if (resta) {
-                resultado = valor1 - valor2;
-                resta = false;
-            } else if (multiplicacion) {
-                resultado = valor1 * valor2;
-                multiplicacion = false;
-            } else if (division) {
-                if (valor2 != 0) {
-                    resultado = valor1 / valor2;
-                } else {
-                    Toast.makeText(this, "No se puede dividir entre 0", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                division = false;
+        } else if (v.getId()==R.id.btnButtonIgual) {
+            int resultado = 0;
+            switch (operacion){
+                case '+': resultado=operando1+operando2;break;
+                case '-': resultado=operando1-operando2;break;
+                case '/': //Cuidado con operando1 y el valor 0
+                case 'x': resultado=operando1*operando2;break;
             }
 
-            pantalla.setText(String.valueOf(resultado));
-        } else {
-            Toast.makeText(this, "Introduce un número para operar", Toast.LENGTH_SHORT).show();
+            //Muestra el resultado
+            //Tened en cuenta los posibles mensajes de error
+            lcd.setText(strResultado+ " - "+resultado);
         }
+
     }
 }
