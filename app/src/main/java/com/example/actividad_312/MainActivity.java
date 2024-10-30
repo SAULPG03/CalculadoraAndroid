@@ -198,6 +198,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             operando2=operando1;
             operando1=0;
         } else if (v.getId()==R.id.btnButtonMulti) {
+            operacion='x';
+            strResultado+=operacion;
+            lcd.setText((strResultado));
+
+            //Cambio de operando
+            operando2=operando1;
+            operando1=0;
+
+        } else if (v.getId()==R.id.btnButtonDelete) {
+            operacion=0;
+            operando2=0;
+            strResultado="";
+            lcd.setText("");
 
         } else if (v.getId()==R.id.btnButtonIgual) {
             int resultado = 0;
@@ -208,9 +221,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 case 'x': resultado=operando1*operando2;break;
             }
 
+
             //Muestra el resultado
             //Tened en cuenta los posibles mensajes de error
-            lcd.setText(strResultado+ " - "+resultado);
+            lcd.setText(strResultado+ " = "+resultado);
         }
 
     }
