@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     void Reset(){
         operando1=0;
         operando2=0;
-        strResultado="0";
+        strResultado="";
         lcd.setText(strResultado);
     }
 
@@ -213,18 +213,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             lcd.setText("");
 
         } else if (v.getId()==R.id.btnButtonIgual) {
+            // Calcula el resultado según la operación
             int resultado = 0;
-            switch (operacion){
-                case '+': resultado=operando1+operando2;break;
-                case '-': resultado=operando1-operando2;break;
-                case '/': //Cuidado con operando1 y el valor 0
-                case 'x': resultado=operando1*operando2;break;
+            try {
+                switch (operacion) {
+                    case '+':
+                        resultado = operando2 + operando1;
+                        break;
+                    case '-':
+                        resultado = operando2 - operando1;
+                        break;
+                    case 'x':
+                        resultado = operando2 * operando1;
+                        break;
+                    case '/':
+                        if (operando1 == 0) {
+                            lcd.setText("Error: División por 0");
+                            return;
+                        }
+                        resultado = operando2 / operando1;
+                        break;
+                }
+            } catch (Exception e) {
+                lcd.setText("Error en cálculo");
+                return;
             }
 
-
-            //Muestra el resultado
-            //Tened en cuenta los posibles mensajes de error
-            lcd.setText(strResultado+ " = "+resultado);
+            // Muestra el resultado y reinicia operando1 para operaciones continuas
+            strResultado += " = " + resultado;
+            lcd.setText(strResultado);
+            operando1 = resultado;
+            strResultado = String.valueOf(resultado); // Reiniciamos el string
         }
 
     }
